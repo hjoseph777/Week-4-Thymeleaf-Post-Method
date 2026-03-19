@@ -68,3 +68,14 @@ Additional fighters can be registered and all entries accumulate in the same tab
 | `README.md` | Lab completion documentation with screenshots |
 | `images/` | Four screenshots showing the form, validation errors, and roster views |
 
+---
+
+## Pull Request
+
+Pull request submitted to the course repository for review.
+
+[https://github.com/Christin-Classrooms/Week-4-Thymeleaf-Post-Method/pull/53](https://github.com/Christin-Classrooms/Week-4-Thymeleaf-Post-Method/pull/53)
+
+![Pull request #53 open on GitHub](images/05_pull_request.png)
+
+
