@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fighters</title>
+    <div th:insert="~{fragments/base :: assetsHead}"></div>
+</head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+<div class="app-container">
+    <div class="app-header text-center">
+        <h2>Fighter Roster</h2>
+        <p class="text-muted">Showing <span th:text="${total}">0</span> fighter(s)</p>
+    </div>
+
+    <div class="players-card">
+
+        <!-- Empty state -->
+        <div th:if="${#lists.isEmpty(fighters)}" class="text-center text-muted py-4">
+            <p>No fighters registered yet. <a th:href="@{/create-fighter}">Register the first fighter!</a></p>
+        </div>
+
+        <!-- Fighters table -->
+        <div class="table-responsive" th:unless="${#lists.isEmpty(fighters)}">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Health</th>
+                        <th scope="col">Damage</th>
+                        <th scope="col">Resistance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="fighter : ${fighters}">
+                        <th scope="row" th:text="${fighter.id}">1</th>
+                        <td th:text="${fighter.name}">Name</td>
+                        <td th:text="${fighter.health}">0</td>
+                        <td th:text="${fighter.damage}">0.0</td>
+                        <td th:text="${fighter.resistance}">0.0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="mt-3 text-center">
+        <a th:href="@{/create-fighter}" class="btn btn-primary">➕ Register Another Fighter</a>
+    </div>
+</div>
+
+<div th:insert="~{fragments/base :: assetsScripts}"></div>
+</body>
+</html>

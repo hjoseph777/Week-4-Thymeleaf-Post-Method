@@ -1,139 +1,52 @@
-# Lab 2 - Thymeleaf - Post Mapping Demo
-
-## Course Information
-- **Course:** CPAN 228
-- **Topic:** Implementing Controllers & Thymeleaf Templates
-
-## Getting Started
-
-This is a starter template for your lab assignments. Follow the GitHub setup below before beginning your work.
-
-### GitHub Setup
-
-1. **Fork the Repository**
-   - Go to the repository on GitHub
-   - Click the "Fork" button in the top-right corner
-   - This creates your own copy of the project
-
-2. **Clone Your Fork**
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/Thymeleaf-Demo.git
-   cd Thymeleaf-Demo
-   ```
-
-3. **Add Upstream Remote**
-   ```bash
-   git remote add upstream https://github.com/ORIGINAL-REPO.git
-   ```
-
-4. **Pull Latest Changes**
-   ```bash
-   git pull upstream main
-   ```
-
-5. **Create a Feature Branch**
-   ```bash
-   git checkout -b feature/lab-yourname
-   ```
-   Replace `yourname` with your actual name (e.g., `feature/lab1-john-doe`)
+# Lab 2 — Thymeleaf Post Method
+**Course:** CPAN 228 — Web Application Development
+**Student:** Harry Joseph
 
 ---
 
-## Lab 2 Assignment
+## Overview
 
-### CreateFighterController Implementation with Form Validation
-
-Implement a `CreateFighterController` with POST method to process fighter registration and add it to the fighter pool (list of fighters similar to what we did in class with players).
-
-#### Requirements
-
-##### Controller Implementation
-- **Implement `createFighter()` method** with POST signature
-  - Handle form submissions from the fighter registration form
-  - Add submitted fighters to the fighter pool (list)
-  - Redirect on successful submission
-
-##### Validation Requirements
-- **All fields required:** name, health, damage, resistance
-- **Health validation:** Must be more than 1000 but less than 1500
-- **Damage validation:** Must be less than 100
-- **Resistance validation:** Must be from 0 to 10 and must be a double value
-
-##### Form & Display
-- **CreateFighter Template:** 
-  - Create a registration form that guides users to fix validation issues
-  - Display validation error messages on the form
- 
-- **FighterController:**
-  - Create a new `FighterController` that renders fighters in a table
-  - Display all registered fighters similar to what we did with Players
-  - Table should show: name, health, damage, resistance
-
-##### Testing
-- Ensure validation is properly working on form submission
-- Test all validation scenarios
-- Verify fighters are added to the list successfully
+This lab builds a fighter registration system using Spring Boot and Thymeleaf. Users fill out a form to register a fighter, which gets validated on the server and then added to an in-memory list. The roster of registered fighters is displayed in a separate table view.
 
 ---
 
+## Registration Form
 
-## Development Workflow
+The form collects four fields: name, health, damage, and resistance. Each field has a hint showing the accepted range.
 
-1. Create your feature branch with your name
-2. Make changes for the lab assignment
-3. Test locally: `mvn spring-boot:run`
-4. Commit your changes:
-   ```bash
-   git add .
-   git commit -m "Lab 2: Implement CreateFighterController with Validation"
-   ```
-5. Push to your fork:
-   ```bash
-   git push origin feature/lab-yourname
-   ```
-6. Create a pull request and submit the link on BlackBoard
+![Fighter registration form](images/01_create_fighter_form.png)
 
 ---
 
-## Resources
+## Validation
 
-- [Thymeleaf Cheat Sheet](THYMELEAF_CHEATSHEET.md) - Common Thymeleaf syntax and patterns
-- [Spring Boot Documentation](https://spring.io/projects/spring-boot)
-- [Thymeleaf Official Docs](https://www.thymeleaf.org/)
-  <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
-    <span th:errors="*{name}">Name error</span>
-  </div>
-</div>
-```
+When invalid data is submitted, the server returns the form with error messages displayed under each failing field. The fighter is not added to the pool until all fields pass validation.
+
+![Form showing validation error messages](images/02_validation_errors.png)
 
 ---
 
-## Reference Quick Table
+## Fighter Added to Roster
 
-| Attribute | Purpose |
-|-----------|---------|
-| `th:text` | Display variable (escaped HTML) |
-| `th:utext` | Display variable (raw HTML) |
-| `th:href` | Generate URLs |
-| `th:src` | Bind image/resource URLs |
-| `th:value` | Bind form input values |
-| `th:each` | Loop through collections |
-| `th:if` | Conditional rendering (true) |
-| `th:unless` | Conditional rendering (false) |
-| `th:switch/case` | Multiple conditions |
-| `th:object` | Bind form to model object |
-| `th:field` | Bind form input to model field |
-| `th:errors` | Display field validation errors |
-| `th:class` | Conditional CSS classes |
-| `th:style` | Conditional inline styles |
-| `th:with` | Define local variables |
-| `th:insert` | Include fragment as child |
-| `th:replace` | Replace element with fragment |
-| `@{}` | URL expression |
-| `${}` | Variable expression |
-| `*{}` | Object variable expression |
-| `#{}` | Utility object expression |
+After submitting valid data, the server redirects to the fighters page where the new entry appears in the table.
+
+![Fighters roster showing one registered fighter](images/03_fighters_roster.png)
 
 ---
 
+## Multiple Fighters Registered
 
+Additional fighters can be registered and all entries accumulate in the same table.
+
+![Fighters roster showing two registered fighters](images/04_two_fighters.png)
+
+---
+
+## Validation Rules
+
+| Field      | Rule                            |
+|------------|---------------------------------|
+| Name       | Cannot be empty                 |
+| Health     | Must be between 1001 and 1499   |
+| Damage     | Must be less than 100           |
+| Resistance | Must be a decimal from 0 to 10  |

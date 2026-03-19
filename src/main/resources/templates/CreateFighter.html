@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:insert="~{fragments/base :: assetsHead}"></div>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+<div class="app-container">
+    <div class="app-header">
+        <h2 class="mb-4">Register a Fighter</h2>
+    </div>
+
+    <div class="players-card">
+        <form th:action="@{/create-fighter}" th:object="${fighter}" method="POST" novalidate>
+
+            <!-- Name -->
+            <div class="mb-3">
+                <label for="name" class="form-label">Fighter Name</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    th:field="*{name}"
+                    th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
+                    placeholder="Enter fighter name"
+                >
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                    Name Error.
+                </div>
+            </div>
+
+            <!-- Health -->
+            <div class="mb-3">
+                <label for="health" class="form-label">Health <span class="text-muted">(must be between 1001 and 1499)</span></label>
+                <input
+                    type="number"
+                    class="form-control"
+                    id="health"
+                    th:field="*{health}"
+                    th:classappend="${#fields.hasErrors('health') ? 'is-invalid' : ''}"
+                    placeholder="e.g. 1200"
+                >
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('health')}" th:errors="*{health}">
+                    Health Error.
+                </div>
+            </div>
+
+            <!-- Damage -->
+            <div class="mb-3">
+                <label for="damage" class="form-label">Damage <span class="text-muted">(must be less than 100)</span></label>
+                <input
+                    type="number"
+                    step="0.1"
+                    class="form-control"
+                    id="damage"
+                    th:field="*{damage}"
+                    th:classappend="${#fields.hasErrors('damage') ? 'is-invalid' : ''}"
+                    placeholder="e.g. 75.5"
+                >
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('damage')}" th:errors="*{damage}">
+                    Damage Error.
+                </div>
+            </div>
+
+            <!-- Resistance -->
+            <div class="mb-3">
+                <label for="resistance" class="form-label">Resistance <span class="text-muted">(must be 0.0 to 10.0)</span></label>
+                <input
+                    type="number"
+                    step="0.1"
+                    class="form-control"
+                    id="resistance"
+                    th:field="*{resistance}"
+                    th:classappend="${#fields.hasErrors('resistance') ? 'is-invalid' : ''}"
+                    placeholder="e.g. 5.5"
+                >
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('resistance')}" th:errors="*{resistance}">
+                    Resistance Error.
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg">Register Fighter</button>
+        </form>
+    </div>
+</div>
+
+<div th:insert="~{fragments/base :: assetsScripts}"></div>
+</body>
+</html>
